@@ -12,9 +12,10 @@ class RecipientApiController @Autowired internal constructor(
         private val voucherRepository: VoucherRepository
 ) : RecipientApi {
     override fun createRecipient(recipient: Recipient): ResponseEntity<Recipient> {
-        return recipient
-                .let(repository::save)
-                .let { ResponseEntity.ok(it) }
+        return recipient.takeUnless { repository.existsByEmail(it.email) }
+                ?.let(repository::save)
+                ?.let { ResponseEntity.ok(it) }
+                ?: ResponseEntity.notFound().build()
     }
 
     override fun recipientBy(email: String): ResponseEntity<List<Voucher>> {

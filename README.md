@@ -14,8 +14,9 @@ there can be many recipients in a voucher pool, we need a call that auto-generat
 
 ## To run
 1. start mongodb
-2. cd voucherpool/
-3. ./gradlew clean bootRun
+2. git clone https://github.com/xizzat/voucherpool.git
+3. cd voucherpool/
+4. ./gradlew clean bootRun
 
 ## Documentation (Swagger)
 ```http://localhost:8080/swagger-ui/```

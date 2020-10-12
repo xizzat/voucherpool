@@ -21,21 +21,29 @@ import org.springframework.web.bind.annotation.ResponseBody
 )
 interface VoucherApi {
     @ApiOperation(
-            value = "Create Voucher",
-            notes = "Create Voucher"
+            value = "Redeem Voucher",
+            notes = "Redeem Voucher"
     )
     @ApiResponses(
-            ApiResponse(code = 200, message = "Voucher is created")
+            ApiResponse(code = 200, message = "Voucher is redeemed")
     )
-    @PostMapping("/api/voucher")
-    fun createVoucher(
+    @PostMapping("/api/voucher/{code}/recipient/{email}")
+    fun redeemVoucher(
             @ApiParam(
-                    value = "Representation of a voucher",
+                    value = "Voucher code",
+                    example = "4d70a486",
                     required = true
             )
-            @RequestBody
-            resource: Voucher
-    ): ResponseEntity<Voucher>
+            @PathVariable
+            code: String,
+            @ApiParam(
+                    value = "Recipient's email",
+                    example = "xizzat@gmail.com",
+                    required = true
+            )
+            @PathVariable
+            email: String
+    ): ResponseEntity<Any>
 
     @ApiOperation(
             value = "Query voucher",

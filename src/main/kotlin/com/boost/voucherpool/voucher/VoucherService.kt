@@ -4,7 +4,6 @@ import com.boost.voucherpool.recipient.RecipientRepository
 import com.boost.voucherpool.specialOffer.SpecialOfferRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.lang.Exception
 import java.time.LocalDate
 import java.util.UUID
 
@@ -19,6 +18,7 @@ class VoucherService @Autowired internal constructor(
             generateVoucher(recipient.email, specialOfferId)
         }
     }
+
     fun generateVoucher(recipientId: String, specialOfferId: String) {
         if (validateRecipient(recipientId) && validateSpecialOffer(specialOfferId)) {
             Voucher(
@@ -29,6 +29,14 @@ class VoucherService @Autowired internal constructor(
             ).let(repository::save)
         } else {
             throw Exception("Recipient or SpecialOffer not exist!")
+        }
+    }
+
+    fun validateVoucher(voucher: Voucher): Boolean {
+        return if (!voucher.active) {
+            false
+        } else {
+            voucher.expirationDate.isAfter((LocalDate.now()))
         }
     }
 

@@ -1,5 +1,6 @@
 package com.boost.voucherpool.recipient
 
+import com.boost.voucherpool.voucher.Voucher
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
@@ -38,25 +39,26 @@ interface RecipientApi {
     ): ResponseEntity<Recipient>
 
     @ApiOperation(
-            value = "Query recipient",
-            notes = "Query a specific recipient by {id}",
+            value = "Query recipient's valid voucher",
+            notes = "Query a recipient's valid voucher by {email}",
             response = Recipient::class
     )
     @ApiResponses(
-            ApiResponse(code = 404, message = "No recipient found for {id}")
+            ApiResponse(code = 404, message = "No recipient found for {email}")
     )
     @RequestMapping(
-            path = ["/api/recipient/{id}"],
+            path = ["/api/recipient/{email}/voucher"],
             method = [RequestMethod.GET],
             produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     @ResponseBody
     fun recipientBy(
             @ApiParam(
-                    value = "ID of recipient",
+                    value = "Email of recipient",
+                    example = "xizzat@gmail.com",
                     required = true
             )
-            @PathVariable("id")
-            id: String
-    ): ResponseEntity<Recipient>
+            @PathVariable("email")
+            email: String
+    ): ResponseEntity<List<Voucher>>
 }

@@ -1,12 +1,34 @@
 package com.boost.voucherpool.voucher
 
-import com.boost.voucherpool.recipient.Recipient
-import com.boost.voucherpool.specialOffer.SpecialOffer
-import java.util.Date
+import io.swagger.annotations.ApiModelProperty
+import java.time.LocalDate
 
 data class Voucher(
-        val id: String,
-        var recipient: Recipient,
-        var offer: SpecialOffer,
-        var expirationDate: Date
+        @get:ApiModelProperty(
+                hidden = true
+        )
+        var id: String? = null,
+        @get:ApiModelProperty(
+                value = "RecipientId",
+                example = "xizzat",
+                required = true,
+                position = 1
+        )
+        var recipientId: String,
+        @get:ApiModelProperty(
+                value = "SpecialOfferId",
+                example = "BOOSTFEAST",
+                required = true,
+                position = 2
+        )
+        var specialOfferId: String,
+        @get:ApiModelProperty(
+                value = "Expiration Date",
+                example = "2020-10-12",
+                required = true,
+                position = 3
+        )
+        var expirationDate: LocalDate,
+        var active: Boolean = true,
+        var usageDate: LocalDate? = null
 )

@@ -2,4 +2,6 @@ package com.boost.voucherpool.voucher
 
 import org.springframework.data.mongodb.repository.MongoRepository
 
-interface VoucherRepository : MongoRepository<Voucher, String>
+interface VoucherRepository : MongoRepository<Voucher, String> {
+    fun findAllByRecipientIdAndActiveTrue(email: String): List<Voucher>
+}

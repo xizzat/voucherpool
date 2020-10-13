@@ -34,3 +34,8 @@ there can be many recipients in a voucher pool, we need a call that auto-generat
 5. Call /api/voucher/{code}/recipient/{email} to redeemed voucher
 - if expiry and unused is valid, the percentage will return as a response
 - same voucher only can be redeemed once
+6. Voucher duration can be configured inside application.properties
+```
+#VoucherPool Config
+boost.voucher.duration=60
+```

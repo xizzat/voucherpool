@@ -3,6 +3,7 @@ package com.boost.voucherpool.voucher
 import com.boost.voucherpool.recipient.RecipientRepository
 import com.boost.voucherpool.specialOffer.SpecialOfferRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.UUID
@@ -13,6 +14,9 @@ class VoucherService @Autowired internal constructor(
         private val recipientRepository: RecipientRepository,
         private val specialOfferRepository: SpecialOfferRepository
 ) {
+    @Value("\${boost.voucher.duration}")
+    var duration: Long = 0
+
     fun generateVoucherToAll(specialOfferId: String) {
         recipientRepository.findAll().forEach { recipient ->
             generateVoucher(recipient.email, specialOfferId)
@@ -40,7 +44,7 @@ class VoucherService @Autowired internal constructor(
         }
     }
 
-    fun getExpirationDate(): LocalDate = LocalDate.now().plusDays(30);
+    fun getExpirationDate(): LocalDate = LocalDate.now().plusDays(duration);
 
     fun validateRecipient(recipientId: String): Boolean = recipientRepository
             .findByEmail(recipientId) != null

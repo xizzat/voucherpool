@@ -18,5 +18,8 @@ there can be many recipients in a voucher pool, we need a call that auto-generat
 3. cd voucherpool/
 4. ./gradlew clean bootRun
 
+## Run testing
+1. ./gradlew test
+
 ## Documentation (Swagger)
 ```http://localhost:8080/swagger-ui/```

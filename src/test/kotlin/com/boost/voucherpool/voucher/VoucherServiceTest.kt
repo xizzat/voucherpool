@@ -80,6 +80,21 @@ class VoucherServiceTest {
     }
 
     @Test
+    fun `validateVoucher - not used and expired`() {
+        val voucher = Voucher(
+                id = "b52145f7",
+                recipientId = "xizzat@gmail.com",
+                specialOfferId = "BOOSTFEAST",
+                expirationDate = LocalDate.parse("2010-12-15"),
+                active = true,
+                usageDate = null
+        )
+        val result = voucherService.validateVoucher(voucher)
+
+        assertThat(result, equalTo(false))
+    }
+
+    @Test
     fun `generateVoucherToAll`() {
         whenever(recipientRepository.findAll()).thenReturn(
                 listOf(

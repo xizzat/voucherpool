@@ -26,15 +26,15 @@ there can be many recipients in a voucher pool, we need a call that auto-generat
 
 ## Steps
 1. The api can be used directly from swagger ui
-2. Create recipient by POST /api/recipient
-3. Create specialOffer by POST /api/special-offer
+2. Create recipient by POST ```/api/recipient```
+3. Create specialOffer by POST ```/api/special-offer```
 - if applyAll is enable, all existing recipient will be assigned a voucher for this offer
 - if applyAll is disable, specialOffer is created but not assigned to recipient
-4. Call /api/recipient/{email}/voucher to get list of valid voucher for specific recipient
-5. Call /api/voucher/{code}/recipient/{email} to redeemed voucher
+4. Call ```/api/recipient/{email}/voucher``` to get list of valid voucher for specific recipient
+5. Call ```/api/voucher/{code}/recipient/{email}``` to redeemed voucher
 - if expiry and unused is valid, the percentage will return as a response
 - same voucher only can be redeemed once
-6. Voucher duration can be configured inside application.properties
+6. Voucher duration can be configured inside ```application.properties```
 ```
 #VoucherPool Config
 boost.voucher.duration=60
